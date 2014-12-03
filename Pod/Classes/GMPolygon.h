@@ -29,12 +29,19 @@
 
 #import <Foundation/Foundation.h>
 
-#import "GMClipper.h"
 
 typedef enum Orientation {
     OrientationClockwise,
     OrientationAnticlockwise
 } Orientation;
+
+
+typedef enum PolygonFillType {
+    PolygonFillTypeEvenOdd,
+    PolygonFillTypeNonZero,
+    PolygonFillTypePositive,
+    PolygonFillTypeNegative,
+} PolygonFillType;
 
 
 /**

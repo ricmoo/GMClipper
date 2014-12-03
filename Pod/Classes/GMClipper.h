@@ -30,7 +30,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class GMPolygon;
+#import "GMPolygon.h"
 
 
 typedef enum ClipType {
@@ -41,26 +41,19 @@ typedef enum ClipType {
 } ClipType;
 
 
-typedef enum PolygonFillType {
-    PolygonFillTypeEvenOdd,
-    PolygonFillTypeNonZero,
-    PolygonFillTypePositive,
-    PolygonFillTypeNegative,
-} PolygonFillType;
-
 
 typedef struct Bounds {
-    struct Point {
+    struct BoundsPoint {
         NSInteger x;
         NSInteger y;
     };
-    struct Size {
+    struct BoundsSize {
         NSInteger width;
         NSInteger height;
     };
 
-    Point origin;
-    Size size;
+    struct BoundsPoint origin;
+    struct BoundsSize size;
 } Bounds;
 
 

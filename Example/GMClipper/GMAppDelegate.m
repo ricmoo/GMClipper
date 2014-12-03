@@ -8,11 +8,56 @@
 
 #import "GMAppDelegate.h"
 
+#import "GMClipper.h"
+#import "GMClipperOffset.h"
+
 @implementation GMAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    // Quick test for something to place in the readme.
+    {
+        // Create a subject polygon
+        GMPolygon *subject = [GMPolygon polygon];
+        [subject addPointX:0 y:0];
+        [subject addPointX:100 y:100];
+        [subject addPointX:100 y:0];
+
+        // Create a clipping polygon (50x50 rectangle)
+        GMPolygon *clipping = [GMPolygon polygon];
+        [clipping addPointX:0 y:0];
+        [clipping addPointX:0 y:50];
+        [clipping addPointX:50 y:50];
+        [clipping addPointX:50 y:0];
+
+        // Prepare the subject with the clipping polygon for clipping
+        GMClipper *clipper = [GMClipper clipper];
+        [clipper addSubjectPolygon:subject];
+        [clipper addClippingPolygon:clipping];
+        
+        // Compute the new polygon(s)
+        NSArray *result = [clipper executeClipType:ClipTypeIntersection];
+
+        NSLog(@"Result: %@", result);
+    }
+
+    {
+        // Create a triangle
+        GMPolygon *triangle = [GMPolygon polygon];
+        [triangle addPointX:0 y:0];
+        [triangle addPointX:100 y:100];
+        [triangle addPointX:100 y:0];
+
+        // Prepare the triangle for enlarging (or shrinking)
+        GMClipperOffset *clipperOffset = [GMClipperOffset clipperOffset];
+        [clipperOffset addPolygon:triangle joinType:JoinTypeSquare endType:EndTypeClosedPolygon];
+    
+        // Compute the triangle enlarged by 10 points
+        NSArray *result = [clipperOffset executeDelta:10];
+
+        NSLog(@"Result: %@", result);
+    }
+    
     return YES;
 }
 							
