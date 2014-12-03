@@ -1,0 +1,11 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+target 'GMClipper', :exclusive => true do
+  pod "GMClipper", :path => "../"
+end
+
+target 'Tests', :exclusive => true do
+  pod "GMClipper", :path => "../"
+
+  pod 'FBSnapshotTestCase'
+end
